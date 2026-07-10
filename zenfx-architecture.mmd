@@ -1,0 +1,23 @@
+﻿flowchart TB
+    subgraph Server["Server"]
+        API["API Routes"]
+        CHAT["POST /api/chat"]
+        NEWS["GET /api/news"]
+        CAL["GET /api/economic-calendar"]
+    end
+    subgraph Components["Komponen Slide"]
+        M["Market Slide"]
+        AI["AI Chat Slide"]
+        ICT["ICT Guide Slide"]
+        U["Utilities Slide"]
+    end
+    subgraph External["Third Party"]
+        G["Groq API"]
+        FH["Finnhub API"]
+        FF["ForexFactory"]
+        TV["TradingView"]
+    end
+    AI --> CHAT --> G
+    M --> NEWS --> FH
+    M --> CAL --> FF
+    M --- TV

@@ -1,0 +1,176 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 750" width="1100" height="750">
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, 'Segoe UI', Arial, sans-serif; }
+      .bg { fill: #0D1117; }
+      .title-text { fill: #F0B90B; font-size: 22px; font-weight: bold; }
+      .subtitle-text { fill: #8B949E; font-size: 12px; }
+      .section-title { fill: #F0B90B; font-size: 13px; font-weight: bold; }
+      .node-text { fill: #E6EDF3; font-size: 12px; font-weight: 600; }
+      .sub-text { fill: #8B949E; font-size: 10px; }
+      .mono-text { fill: #58A6FF; font-size: 9px; font-family: monospace; }
+      .key-text { fill: #F0B90B; font-size: 9px; font-family: monospace; }
+
+      .box { fill: #161B22; stroke: #30363D; stroke-width: 1.5; rx: 8; }
+      .box-client { fill: #1C2333; stroke: #30363D; stroke-width: 1.5; rx: 8; }
+      .box-highlight { stroke: #F0B90B; stroke-width: 1.5; stroke-dasharray: 4,3; rx: 8; fill: #161B22; }
+
+      .arrow-line { stroke: #30363D; stroke-width: 1.5; fill: none; }
+      .arrow-data { stroke: #58A6FF; stroke-width: 1.5; fill: none; }
+      .arrow-head { fill: #30363D; }
+      .arrow-data-head { fill: #58A6FF; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" width="1100" height="750"/>
+
+  <!-- Title -->
+  <text x="550" y="40" class="title-text" text-anchor="middle">ZenFX — System Architecture</text>
+  <text x="550" y="58" class="subtitle-text" text-anchor="middle">Personal Trading Suite for Zen The Trader</text>
+
+  <!-- ==================== LAYER 1: CLIENT ==================== -->
+  <rect class="box-client" x="40" y="85" width="300" height="155"/>
+  <rect class="box-highlight" x="50" y="95" width="280" height="135"/>
+
+  <text x="190" y="112" class="section-title" text-anchor="middle">🖥️ CLIENT BROWSER</text>
+  <line x1="80" y1="120" x2="300" y2="120" stroke="#30363D" stroke-width="1"/>
+
+  <text x="190" y="142" class="node-text" text-anchor="middle">Next.js 14 App (React SPA)</text>
+  <text x="190" y="160" class="sub-text" text-anchor="middle">Tailwind CSS 4 + shadcn/ui</text>
+  <text x="190" y="185" class="node-text" text-anchor="middle">Slide Navigation</text>
+  <text x="190" y="203" class="sub-text" text-anchor="middle">Keyboard → ← / Click / Number keys</text>
+  <text x="190" y="218" class="sub-text" text-anchor="middle">Animasi transisi seperti PPT</text>
+
+  <!-- ==================== LAYER 2: SERVER ==================== -->
+  <rect class="box" x="390" y="85" width="320" height="220"/>
+  <text x="550" y="112" class="section-title" text-anchor="middle">⚡ NEXT.JS SERVER (App Router)</text>
+  <line x1="420" y1="120" x2="680" y2="120" stroke="#30363D" stroke-width="1"/>
+
+  <!-- API Routes sub-section -->
+  <text x="550" y="145" class="node-text" text-anchor="middle">📡 API Route Handlers</text>
+
+  <rect x="430" y="155" width="240" height="24" rx="4" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="550" y="172" class="mono-text" text-anchor="middle">POST /api/chat  →  Groq API (Llama 3)</text>
+
+  <rect x="430" y="183" width="240" height="24" rx="4" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="550" y="200" class="mono-text" text-anchor="middle">GET /api/news  →  Finnhub API</text>
+
+  <rect x="430" y="211" width="240" height="24" rx="4" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="550" y="228" class="mono-text" text-anchor="middle">GET /api/economic-calendar  →  ForexFactory</text>
+
+  <text x="550" y="258" class="node-text" text-anchor="middle">📦 Business Logic</text>
+  <text x="550" y="276" class="sub-text" text-anchor="middle">lib/ict-knowledge.ts (ICT System Prompt)</text>
+  <text x="550" y="293" class="sub-text" text-anchor="middle">lib/marketHours.ts (Market Sessions)</text>
+
+  <!-- ==================== LAYER 3: SLIDES ==================== -->
+  <rect class="box" x="40" y="280" width="300" height="215"/>
+  <text x="190" y="307" class="section-title" text-anchor="middle">🧩 KOMPONEN SLIDE</text>
+  <line x1="70" y1="315" x2="310" y2="315" stroke="#30363D" stroke-width="1"/>
+
+  <!-- Slide 1 -->
+  <rect x="55" y="325" width="270" height="36" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="190" y="340" class="node-text" text-anchor="middle">📊 Market Slide (Slide 1)</text>
+  <text x="190" y="354" class="sub-text" text-anchor="middle">TradingView Chart + Fundamental Sidebar</text>
+
+  <!-- Slide 2 -->
+  <rect x="55" y="365" width="270" height="36" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="190" y="380" class="node-text" text-anchor="middle">🤖 AI Chat Slide (Slide 2)</text>
+  <text x="190" y="394" class="sub-text" text-anchor="middle">Chatbot ICT + Gemini/Groq + Quick Ask</text>
+
+  <!-- Slide 3 -->
+  <rect x="55" y="405" width="270" height="36" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="190" y="420" class="node-text" text-anchor="middle">📚 ICT Guide Slide (Slide 3)</text>
+  <text x="190" y="434" class="sub-text" text-anchor="middle">Edukasi FVG, OB, MSS + Diagram SVG</text>
+
+  <!-- Slide 4 -->
+  <rect x="55" y="445" width="270" height="36" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="190" y="460" class="node-text" text-anchor="middle">🔧 Utilities Slide (Slide 4)</text>
+  <text x="190" y="474" class="sub-text" text-anchor="middle">Position Calculator + Daily Checklist</text>
+
+  <!-- ==================== LAYER 4: EXTERNAL ==================== -->
+  <rect class="box" x="760" y="85" width="300" height="270"/>
+  <text x="910" y="112" class="section-title" text-anchor="middle">🔌 THIRD PARTY SERVICES</text>
+  <line x1="790" y1="120" x2="1030" y2="120" stroke="#30363D" stroke-width="1"/>
+
+  <!-- Groq -->
+  <rect x="775" y="132" width="270" height="46" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="910" y="150" class="node-text" text-anchor="middle">🤖 Groq API</text>
+  <text x="910" y="168" class="sub-text" text-anchor="middle">llama-3.3-70b-versatile (setara GPT-4)</text>
+
+  <!-- Finnhub -->
+  <rect x="775" y="185" width="270" height="46" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="910" y="203" class="node-text" text-anchor="middle">📰 Finnhub API</text>
+  <text x="910" y="221" class="sub-text" text-anchor="middle">Forex + General News (filter Gold/XAUUSD)</text>
+
+  <!-- ForexFactory -->
+  <rect x="775" y="238" width="270" height="46" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="910" y="256" class="node-text" text-anchor="middle">📅 ForexFactory</text>
+  <text x="910" y="274" class="sub-text" text-anchor="middle">Economic Calendar (gratis, tanpa API key)</text>
+
+  <!-- TradingView -->
+  <rect x="775" y="291" width="270" height="46" rx="5" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="910" y="309" class="node-text" text-anchor="middle">📈 TradingView Widget</text>
+  <text x="910" y="327" class="sub-text" text-anchor="middle">Chart XAUUSD via iframe</text>
+
+  <!-- ==================== ENVIRONMENT ==================== -->
+  <rect class="box" x="760" y="380" width="300" height="115"/>
+  <text x="910" y="405" class="section-title" text-anchor="middle">🔐 ENVIRONMENT (.env.local)</text>
+  <line x1="790" y1="413" x2="1030" y2="413" stroke="#30363D" stroke-width="1"/>
+
+  <rect x="775" y="425" width="270" height="28" rx="4" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="910" y="444" class="key-text" text-anchor="middle">GROQ_API_KEY=gsk_... (Groq)</text>
+
+  <rect x="775" y="458" width="270" height="28" rx="4" fill="#1C2333" stroke="#30363D" stroke-width="1"/>
+  <text x="910" y="477" class="key-text" text-anchor="middle">FINNHUB_API_KEY=... (Finnhub)</text>
+
+  <!-- ==================== ARROWS ==================== -->
+
+  <!-- Client → Server -->
+  <line x1="340" y1="120" x2="385" y2="120" class="arrow-data"/>
+  <polygon points="385,116 397,120 385,124" class="arrow-data-head"/>
+  <text x="363" y="112" class="mono-text" text-anchor="middle" fill="#58A6FF">fetch / POST</text>
+
+  <!-- Client → Slides -->
+  <line x1="340" y1="380" x2="385" y2="380" class="arrow-data"/>
+  <polygon points="385,376 397,380 385,384" class="arrow-data-head"/>
+  <text x="363" y="372" class="sub-text" text-anchor="middle">render</text>
+
+  <!-- Server → Groq -->
+  <line x1="710" y1="160" x2="755" y2="160" class="arrow-data"/>
+  <polygon points="755,156 767,160 755,164" class="arrow-data-head"/>
+  <text x="733" y="152" class="mono-text" text-anchor="middle" fill="#58A6FF">API</text>
+
+  <!-- Server → Finnhub -->
+  <line x1="710" y1="195" x2="755" y2="195" class="arrow-data"/>
+  <polygon points="755,191 767,195 755,199" class="arrow-data-head"/>
+  <text x="733" y="187" class="mono-text" text-anchor="middle" fill="#58A6FF">API</text>
+
+  <!-- Server → ForexFactory -->
+  <line x1="710" y1="230" x2="755" y2="260" class="arrow-data"/>
+  <polygon points="755,256 767,260 755,264" class="arrow-data-head"/>
+  <text x="733" y="250" class="mono-text" text-anchor="middle" fill="#58A6FF">fetch</text>
+
+  <!-- Market Slide → TradingView -->
+  <line x1="340" y1="320" x2="755" y2="320" class="arrow-data"/>
+  <polygon points="755,316 767,320 755,324" class="arrow-data-head"/>
+  <text x="548" y="313" class="mono-text" text-anchor="middle" fill="#58A6FF">iframe embed</text>
+
+  <!-- Env → Server -->
+  <line x1="760" y1="440" x2="715" y2="200" class="arrow-line"/>
+  <polygon points="715,196 703,200 715,204" class="arrow-head"/>
+  <text x="725" y="430" class="sub-text" text-anchor="end">Env Vars</text>
+
+  <!-- ==================== FOOTER ==================== -->
+  <line x1="50" y1="535" x2="1050" y2="535" stroke="#30363D" stroke-width="1"/>
+
+  <text x="550" y="560" class="sub-text" text-anchor="middle" font-size="11" font-weight="bold">Data Flow Summary</text>
+
+  <text x="80" y="585" class="sub-text">1. User navigasi slide (Keyboard ← → / Click) → React render komponen</text>
+  <text x="80" y="605" class="sub-text">2. AI Chat Slide → POST /api/chat → Groq API (LLM) → Response balik</text>
+  <text x="80" y="625" class="sub-text">3. Market Slide → GET /api/news + /api/economic-calendar → Tampil di Sidebar panel</text>
+  <text x="80" y="645" class="sub-text">4. Market Slide → iframe TradingView → Chart XAUUSD live</text>
+  <text x="80" y="665" class="sub-text">5. Utilities Slide → Kalkulasi lokal (no API) + localStorage (Checklist harian)</text>
+
+  <text x="550" y="710" class="sub-text" text-anchor="middle">ZenFX v2.0 · Personal Edition</text>
+</svg>
