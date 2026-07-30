@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { CoverSlide } from "@/components/slides/cover-slide"
-import { MarketSlide } from "@/components/slides/market-slide"
-import { AiChatSlide } from "@/components/slides/ai-chat-slide"
+import { MarketOverviewSlide } from "@/components/slides/market-overview-slide"
 import { NewsResearchSlide } from "@/components/slides/news-research-slide"
-import { BarChart3, Bot, LayoutDashboard, Newspaper } from "lucide-react"
+import { NewsElementSlide } from "@/components/slides/news-element-slide"
+import { TradingChart } from "@/components/trading-chart"
+import { BarChart3, ChartCandlestick, LayoutDashboard, Newspaper, TrendingUp, LayoutGrid } from "lucide-react"
 import {
   isForexMarketOpen,
   getActiveSessions,
@@ -13,10 +14,11 @@ import {
 
 /* ── Slide config ── */
 const SLIDES = [
-  { id: "cover",          label: "Cover",          icon: LayoutDashboard, shortcut: "0" },
-  { id: "news-research",  label: "News Research",  icon: Newspaper,       shortcut: "1" },
-  { id: "market",         label: "Market",         icon: BarChart3,       shortcut: "2" },
-  { id: "ai-chat",        label: "AI Chat",        icon: Bot,             shortcut: "3" },
+  { id: "cover",           label: "Cover",           icon: LayoutDashboard,   shortcut: "0" },
+  { id: "market-overview", label: "Market Overview", icon: LayoutGrid,        shortcut: "1" },
+  { id: "news-research",   label: "News Research",   icon: Newspaper,         shortcut: "2" },
+  { id: "news-element",    label: "News Element",    icon: TrendingUp,        shortcut: "3" },
+  { id: "live-chart",      label: "Live Chart",      icon: ChartCandlestick,  shortcut: "4" },
 ] as const
 
 type SlideId = (typeof SLIDES)[number]["id"]
@@ -26,9 +28,10 @@ type Direction = "left" | "right" | "none"
 
 const SLIDE_INDEX: Record<SlideId, number> = {
   cover: 0,
-  "news-research": 1,
-  market: 2,
-  "ai-chat": 3,
+  "market-overview": 1,
+  "news-research": 2,
+  "news-element": 3,
+  "live-chart": 4,
 }
 
 export default function Home() {
@@ -88,9 +91,10 @@ export default function Home() {
         const prev = SLIDES[idx - 1]
         if (prev) goTo(prev.id)
       } else if (e.key === "0") goTo("cover")
-      else if (e.key === "1") goTo("news-research")
-      else if (e.key === "2") goTo("market")
-      else if (e.key === "3") goTo("ai-chat")
+      else if (e.key === "1") goTo("market-overview")
+      else if (e.key === "2") goTo("news-research")
+      else if (e.key === "3") goTo("news-element")
+      else if (e.key === "4") goTo("live-chart")
     }
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
@@ -104,10 +108,11 @@ export default function Home() {
 
   const renderSlide = (id: SlideId) => {
     switch (id) {
-      case "cover":          return <CoverSlide onEnter={() => goTo("news-research")} />
-      case "news-research":  return <NewsResearchSlide />
-      case "market":         return <MarketSlide isActive={current === "market"} />
-      case "ai-chat":        return <AiChatSlide />
+      case "cover":           return <CoverSlide onEnter={() => goTo("market-overview")} />
+      case "market-overview": return <MarketOverviewSlide />
+      case "news-research":   return <NewsResearchSlide />
+      case "news-element":    return <NewsElementSlide />
+      case "live-chart":      return <TradingChart />
     }
   }
 
