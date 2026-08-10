@@ -48,7 +48,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* ── Gold Trading Dark Theme ── */
+/* Gold Trading Dark Theme */
 :root {
   --background: #0D1117;
   --foreground: #E6EDF3;
@@ -152,7 +152,7 @@
   height: 100% !important;
 }
 
-/* ── Slide Deck Animations ── */
+/* Slide Deck Animations */
 @keyframes slide-in-right {
   from { transform: translateX(100%); opacity: 0; }
   to   { transform: translateX(0);    opacity: 1; }
@@ -177,7 +177,7 @@
   animation: fade-up 0.5s ease forwards;
 }
 
-/* ── Animation helper classes ── */
+/* Animation helper classes */
 .slide-in-right {
   animation: slide-in-right 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -191,7 +191,7 @@
   animation: slide-out-right 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* ── News Research Slide Styles ── */
+/* News Research Slide Styles */
 @keyframes news-pulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.35; }

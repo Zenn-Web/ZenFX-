@@ -159,7 +159,7 @@ export function TradingChart() {
       {!marketOpen && (
         <div className="absolute top-[53px] left-0 right-0 z-20 flex items-center justify-center py-1.5 bg-red-950/80 backdrop-blur-sm border-b border-red-800/50">
           <span className="text-xs text-red-300 font-medium">
-            ⚠️ Pasar ditutup saat ini — Chart menampilkan data terakhir.{" "}
+            ⚠️ Pasar ditutup saat ini: Chart menampilkan data terakhir.{" "}
             {countdown && `Buka kembali dalam ${countdown}.`}
           </span>
         </div>

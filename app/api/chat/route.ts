@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from "next/server"
+
 const SYSTEM_PROMPT = `
-Kamu adalah analis riset pasar profesional yang berfokus pada instrumen Forex, khususnya Gold (XAUUSD).
-Fokus utamamu adalah:
-- Memberikan analisis sentimen pasar terkini berdasarkan berita fundamental dan makroekonomi (misalnya rilis NFP, CPI, pidato bank sentral).
-- Menjelaskan dampak peristiwa geopolitik atau data ekonomi terhadap pergerakan pasar.
-- Selalu memberikan analisis yang objektif, ringkas, dan bebas dari opini bias.
-Jangan gunakan kerangka ICT. Fokus murni pada fundamental, aksi harga umum, dan riset pasar.
-`;
+Kamu adalah analis riset pasar profesional dan spesialis instrumen Forex, khususnya Emas (XAUUSD).
+
+ATURAN UTAMA & BATASAN MUTLAK:
+1. FOKUS HANYA PADA PASAR FOREX & EMAS (XAUUSD):
+   - Memberikan analisis sentimen pasar terkini berdasarkan berita fundamental dan makroekonomi (misalnya rilis NFP, CPI, PCE, PPI, FOMC, pidato bank sentral).
+   - Menjelaskan dampak peristiwa geopolitik, kebijakan suku bunga, atau data ekonomi terhadap pergerakan pasar.
+   - Menjawab pertanyaan seputar analisis fundamental, hubungan DXY, Yield US10Y, dan pasangan forex utama.
+
+2. PENOLAKAN DENGAN SOPAN UNTUK TOPIK DILUAR PASAR:
+   - Jika pengguna mengajukan pertanyaan di luar riset pasar forex/emas (misalnya tentang koding, pemograman, pembuatan landing page, software teknis, resep masakan, dll.), TOLAK DENGAN SOPAN dan ingatkan pengguna bahwa fokusmu murni pada riset pasar forex & emas.
+   - Contoh respon penolakan: "Maaf, sebagai AI spesialis riset pasar ZenFX, fokus saya murni pada analisis fundamental Forex dan Emas (XAUUSD). Silakan ajukan pertanyaan seputar berita ekonomi, data makro (NFP, CPI, Fed Rate), atau sentimen pasar terkini."
+
+3. GAYA BAHASA:
+   - Tajam, objektif, profesional, ringkas, dan bebas dari opini bias atau promosi.
+   - Jangan gunakan kerangka ICT. Fokus murni pada fundamental makroekonomi, aksi harga umum, dan riset pasar.
+`
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,13 +30,26 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Build Groq-compatible conversation history (standard OpenAI format)
+    const nowWib = new Date().toLocaleString("id-ID", {
+      timeZone: "Asia/Jakarta",
+      dateStyle: "full",
+      timeStyle: "medium",
+    })
+
+    const dynamicSystemPrompt = `${SYSTEM_PROMPT}
+
+WAKTU SAAT INI: ${nowWib} WIB.
+INSTRUKSI DATA REAL-TIME:
+- Utamakan informasi berita dan data ekonomi terkini yang diberikan dalam percakapan/konteks.
+- Jika ada berita/event rilis terbaru (misalnya FOMC, NFP, CPI), gunakan data tersebut sebagai acuan utama analisis.`
+
+    // Susun riwayat obrolan lengkap dengan System Prompt yang dilengkapi timestamp
     const formattedMessages = [
-      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: dynamicSystemPrompt },
       ...messages.map((m: { role: string; content: string }) => ({
         role: m.role,
         content: m.content,
-      }))
+      })),
     ]
 
     const response = await fetch(
@@ -35,12 +58,12 @@ export async function POST(req: NextRequest) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "llama-3.3-70b-versatile", // Model unggulan Groq yang setara GPT-4
+          model: "llama-3.3-70b-versatile",
           messages: formattedMessages,
-          temperature: 0.7,
+          temperature: 0.4,
           max_tokens: 1024,
           top_p: 0.95,
         }),
@@ -70,4 +93,3 @@ export async function POST(req: NextRequest) {
     )
   }
 }
-

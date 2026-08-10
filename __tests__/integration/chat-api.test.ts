@@ -124,7 +124,7 @@ describe("POST /api/chat", () => {
 
       const body = JSON.parse(mockFetch.mock.calls[0][1].body)
       expect(body.model).toBe("llama-3.3-70b-versatile")
-      expect(body.temperature).toBe(0.7)
+      expect(body.temperature).toBe(0.4)
       expect(body.max_tokens).toBe(1024)
     })
   })

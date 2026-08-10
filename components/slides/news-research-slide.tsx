@@ -17,10 +17,14 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
-/* ─────────────────────────────────────────────────────────────
-   AI DIGEST PANEL — Panel kanan: generate analisis dari AI
-   berdasarkan data live news + economic calendar
-───────────────────────────────────────────────────────────── */
+export function formatEventContext(e: any): string {
+  const forecastVal = (e.forecast !== null && e.forecast !== undefined && e.forecast !== "") ? e.forecast : "N/A"
+  const previousVal = (e.previous !== null && e.previous !== undefined && e.previous !== "") ? e.previous : "N/A"
+  const actualVal   = (e.actual !== null && e.actual !== undefined && e.actual !== "") ? e.actual : "Belum"
+  return `• [${e.country || "GLOBAL"}] ${e.title} | Forecast: ${forecastVal} | Previous: ${previousVal} | Actual: ${actualVal}`
+}
+
+/* AI Digest Panel: generate analysis from live news + calendar */
 function AiDigestPanel() {
   const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string; time?: string }[]>([])
   const [input, setInput] = useState("")
@@ -52,7 +56,7 @@ function AiDigestPanel() {
     const events: any[] = (calendarData?.events || []).filter((e: any) => e.impact === "High").slice(0, 8)
     return `[SYSTEM CONTEXT - LIVE MARKET DATA]
 HIGH IMPACT EVENTS:
-${events.length > 0 ? events.map((e: any) => `• [${e.country}] ${e.title} | Forecast: ${e.forecast || "N/A"} | Previous: ${e.previous || "N/A"} | Actual: ${e.actual || "Belum"}`).join("\n") : "Tidak ada event high impact."}
+${events.length > 0 ? events.map((e: any) => formatEventContext(e)).join("\n") : "Tidak ada event high impact."}
 
 BERITA TERKINI:
 ${news.length > 0 ? news.map((n: any) => `• ${n.headline}`).join("\n") : "Tidak ada berita terkini."}`
@@ -99,10 +103,9 @@ Kamu adalah analis senior XAUUSD/Gold. Buat market brief singkat namun tajam ber
     setInput("")
     setIsSending(true)
 
-    // Build payload messages with live context prepended
+    // Send latest live context once alongside clean user conversation history
     const apiMessages = [
-      { role: "user", content: getLiveContext() },
-      ...updatedWithUser.map((m) => ({ role: m.role, content: m.content }))
+      { role: "user", content: `${getLiveContext()}\n\n[PERTANYAAN USER]: ${query}` }
     ]
 
     try {
@@ -255,14 +258,12 @@ Kamu adalah analis senior XAUUSD/Gold. Buat market brief singkat namun tajam ber
   )
 }
 
-/* ─────────────────────────────────────────────────────────────
-   NEWS RESEARCH SLIDE — Layout 3 panel utama
-───────────────────────────────────────────────────────────── */
+/* News Research Slide */
 export function NewsResearchSlide() {
   return (
     <div className="flex flex-col h-full w-full bg-[#0A0D12]">
 
-      {/* ── Slide Header ── */}
+      {/* Slide Header */}
       <div
         className="flex items-center justify-between px-4 h-11 shrink-0 border-b border-zinc-800/60 bg-[#0D1117] z-10"
         style={{ minHeight: "44px" }}
@@ -295,10 +296,10 @@ export function NewsResearchSlide() {
         </div>
       </div>
 
-      {/* ── 3-Panel Body ── */}
+      {/* 3-Panel Body */}
       <div className="flex flex-1 min-h-0 overflow-hidden divide-x divide-zinc-800/60">
 
-        {/* ── Panel Kiri: Economic Calendar (340px) ── */}
+        {/* Panel Kiri: Economic Calendar (340px) */}
         <div className="w-[340px] shrink-0 flex flex-col min-h-0">
           <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
             <Globe className="h-3.5 w-3.5 text-zinc-500" />
@@ -311,7 +312,7 @@ export function NewsResearchSlide() {
           </div>
         </div>
 
-        {/* ── Panel Tengah: Live Market News (flex-1) ── */}
+        {/* Panel Tengah: Live Market News (flex-1) */}
         <div className="flex-1 flex flex-col min-h-0 min-w-0">
           <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
             <Newspaper className="h-3.5 w-3.5 text-zinc-500" />
@@ -324,7 +325,7 @@ export function NewsResearchSlide() {
           </div>
         </div>
 
-        {/* ── Panel Kanan: AI Market Digest (360px) ── */}
+        {/* Panel Kanan: AI Market Digest (360px) */}
         <div className="w-[360px] shrink-0 flex flex-col min-h-0">
           <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
             <Sparkles className="h-3.5 w-3.5 text-zinc-500" />

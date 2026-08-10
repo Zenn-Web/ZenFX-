@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
-/* ── Latest indicator snapshot (update when new data releases) ── */
+/* Latest indicator snapshot (update when new data releases) */
 const LATEST_SNAPSHOT = [
   { name: "CPI",        actual: "2.4 %",   forecast: "2.3 %" },
   { name: "Core CPI",   actual: "2.2 %",   forecast: "2.1 %" },
@@ -16,7 +16,7 @@ const snapshotDescription = LATEST_SNAPSHOT.map(
 ).join(" · ")
 
 export const metadata: Metadata = {
-  title: "ZenFX — Personal Trading Suite",
+  title: "ZenFX | Personal Trading Suite",
   description: `Private trading suite untuk fundamental trader. Data terbaru: ${snapshotDescription}. Analisis XAUUSD, Forex News, Economic Calendar.`,
   keywords: [
     "ZenFX", "XAUUSD", "gold trading", "forex news", "fundamental analysis",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   ].join(", "),
   authors: [{ name: "Zen The Trader" }],
   openGraph: {
-    title: "ZenFX — Personal Trading Suite",
+    title: "ZenFX | Personal Trading Suite",
     description: `Data terbaru: ${snapshotDescription}`,
     type: "website",
     locale: "id_ID",
@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="id" className="h-full antialiased font-sans dark">
       <head>
-        <meta name="description" content={`ZenFX Economic Dashboard — ${snapshotDescription}`} />
+        <meta name="description" content={`ZenFX Economic Dashboard | ${snapshotDescription}`} />
         <meta name="robots" content="noindex, nofollow" />
         <meta name="theme-color" content="#0A0D12" />
       </head>

@@ -21,7 +21,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-/* ── Types ── */
+/* Types */
 type ImpactLevel = "very-high" | "high"
 
 interface Indicator {
@@ -40,7 +40,7 @@ interface Indicator {
   description: string
 }
 
-/* ── Data — FRED-compatible indicators only ── */
+/* Data - FRED compatible indicators */
 const INITIAL_INDICATORS: Indicator[] = [
   // Very High
   {
@@ -158,7 +158,7 @@ const INITIAL_INDICATORS: Indicator[] = [
   },
 ]
 
-/* ── Sparkline URL (QuickChart, 3 titik: Prev → Forecast → Actual) ── */
+/* Sparkline URL (QuickChart) */
 function sparklineUrl(ind: Indicator): string {
   if (ind.isNote) return ""
   const prev = typeof ind.previous === "number" ? ind.previous : parseFloat(String(ind.previous))
@@ -195,7 +195,7 @@ function sparklineUrl(ind: Indicator): string {
   )
 }
 
-/* ── Helpers ── */
+/* Helpers */
 function getDeviation(ind: Indicator): number | null {
   if (ind.isNote) return null
   const a = typeof ind.actual   === "number" ? ind.actual   : parseFloat(String(ind.actual))
@@ -213,7 +213,7 @@ function fmt(v: number | string, unit: string): string {
   return `${n}${unit}`
 }
 
-/* ── Breaking Banner ── */
+/* Breaking Banner */
 function BreakingBanner({ indicators }: { indicators: Indicator[] }) {
   const hits = indicators.filter((i) => {
     const d = getDeviation(i)
@@ -249,7 +249,7 @@ function BreakingBanner({ indicators }: { indicators: Indicator[] }) {
   )
 }
 
-/* ── Deviation Cell ── */
+/* Deviation Cell */
 function DeviationCell({ ind }: { ind: Indicator }) {
   if (ind.isNote) return <span className="text-zinc-800 text-[10px] font-mono">—</span>
   const d = getDeviation(ind)
@@ -268,7 +268,7 @@ function DeviationCell({ ind }: { ind: Indicator }) {
   )
 }
 
-/* ── Table Row ── */
+/* Table Row */
 function IndicatorRow({
   ind,
   rank,
@@ -283,7 +283,7 @@ function IndicatorRow({
   const spark = sparklineUrl(ind)
 
   const ariaLabel = ind.isNote
-    ? `${ind.fullName} — event, klik sumber untuk detail`
+    ? `${ind.fullName}: event, klik sumber untuk detail`
     : `${ind.fullName}, previous ${fmt(ind.previous, ind.unit)}, actual ${fmt(ind.actual, ind.unit)}, forecast ${fmt(ind.forecast, ind.unit)}`
 
   return (
@@ -400,7 +400,7 @@ function IndicatorRow({
   )
 }
 
-/* ── Table header ── */
+/* Table header */
 function TableHead() {
   return (
     <thead>
@@ -423,7 +423,7 @@ function TableHead() {
   )
 }
 
-/* ── Collapsible Section ── */
+/* Collapsible Section */
 function IndicatorSection({
   label,
   level,
@@ -487,7 +487,7 @@ function IndicatorSection({
   )
 }
 
-/* ── Pinned / Watchlist Section ── */
+/* Pinned / Watchlist Section */
 function WatchlistSection({
   indicators,
   pinnedIds,
@@ -526,7 +526,7 @@ function WatchlistSection({
   )
 }
 
-/* ── Main Slide ── */
+/* Main Slide */
 const LS_KEY = "zenfx_pinned_indicators"
 
 export function NewsElementSlide() {

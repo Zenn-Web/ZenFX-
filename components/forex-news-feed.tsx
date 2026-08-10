@@ -136,7 +136,7 @@ export function ForexNewsFeed({ compact = true }: { compact?: boolean }) {
       <div className="flex items-center justify-between px-3 py-1.5 bg-zinc-800/30 border-b border-zinc-800/50 shrink-0">
         {isDemoMode ? (
           <span className="text-[10px] text-amber-400/80 font-medium">
-            ⚠️ Demo — Set FINNHUB_API_KEY di .env.local
+            ⚠️ Demo: Set FINNHUB_API_KEY di .env.local
           </span>
         ) : (
           <span className="text-[10px] text-zinc-500 flex items-center gap-1">
@@ -160,7 +160,7 @@ export function ForexNewsFeed({ compact = true }: { compact?: boolean }) {
             Tidak ada berita saat ini.
           </div>
         ) : compact ? (
-          /* ── COMPACT MODE (sidebar) ── */
+          /* Compact mode (sidebar) */
           <div className="flex flex-col divide-y divide-zinc-800/40">
             {news.map((item) => (
               <a
@@ -189,7 +189,7 @@ export function ForexNewsFeed({ compact = true }: { compact?: boolean }) {
             ))}
           </div>
         ) : (
-          /* ── FULL CARD MODE (News Research panel) ── */
+          /* Full card mode (News Research panel) */
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 p-3">
             {news.map((item) => (
               <a
