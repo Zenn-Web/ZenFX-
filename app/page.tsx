@@ -6,6 +6,7 @@ import { MarketOverviewSlide } from "@/components/slides/market-overview-slide"
 import { NewsResearchSlide } from "@/components/slides/news-research-slide"
 import { NewsElementSlide } from "@/components/slides/news-element-slide"
 import { BarChart3, LayoutDashboard, Newspaper, TrendingUp, LayoutGrid, LogOut, UserCheck } from "lucide-react"
+import { SplashScreen } from "@/components/splash-screen"
 import {
   isForexMarketOpen,
   getActiveSessions,
@@ -191,6 +192,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen bg-[#0A0D12] text-zinc-100 overflow-hidden select-none">
+      {/* App Splash Screen */}
+      <SplashScreen />
+
       {/* Top Status Bar (hidden on cover) */}
       {!isCover && (
         <header className="flex h-10 shrink-0 items-center justify-between border-b border-zinc-800/60 bg-[#0D1117] px-4 z-20">
