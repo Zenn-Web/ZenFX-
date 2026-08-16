@@ -47,6 +47,42 @@ export default function Home() {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [shakeAlert, setShakeAlert] = useState(false)
 
+  // Navigation controller with forceAuth support
+  const goTo = useCallback(
+    (target: SlideId, forceAuth?: boolean) => {
+      if (target === current || animating) return
+
+      const authActive = forceAuth ?? isAuthenticated
+      // Guardrail: Protect slides 1-3 if unauthenticated
+      if (target !== "cover" && !authActive) {
+        setShakeAlert(true)
+        setCurrent("cover")
+        setTimeout(() => setShakeAlert(false), 1500)
+        return
+      }
+
+      // Save tab only when navigating among dashboard pages (slides 1, 2, 3)
+      if (target !== "cover") {
+        localStorage.setItem("zenfx_active_dashboard_tab", target)
+      } else {
+        localStorage.removeItem("zenfx_active_dashboard_tab")
+      }
+
+      const dir = SLIDE_INDEX[target] > SLIDE_INDEX[current] ? "left" : "right"
+      setDirection(dir)
+      setPrev(current)
+      setCurrent(target)
+      setAnimating(true)
+
+      setTimeout(() => {
+        setPrev(null)
+        setAnimating(false)
+        setDirection("none")
+      }, 420)
+    },
+    [current, animating, isAuthenticated]
+  )
+
   // Initialize Supabase Auth Session & Restore Tab only when inside dashboard
   useEffect(() => {
     const restoreDashboardTabIfActive = () => {
@@ -83,6 +119,7 @@ export default function Home() {
         setUserEmail(session.user.email || null)
         localStorage.setItem("zenfx_authenticated", "true")
         localStorage.setItem("zenfx_user_email", session.user.email || "")
+        restoreDashboardTabIfActive()
       } else {
         setIsAuthenticated(false)
         setUserEmail(null)
@@ -116,7 +153,7 @@ export default function Home() {
     localStorage.setItem("zenfx_user_email", email)
     setShakeAlert(false)
     const targetTab = (localStorage.getItem("zenfx_active_dashboard_tab") as SlideId) || "market-overview"
-    goTo(targetTab)
+    goTo(targetTab, true)
   }
 
   const handleLogout = async () => {
@@ -128,40 +165,6 @@ export default function Home() {
     localStorage.removeItem("zenfx_active_dashboard_tab")
     setCurrent("cover")
   }
-
-  const goTo = useCallback(
-    (target: SlideId) => {
-      if (target === current || animating) return
-
-      // Guardrail: Protect slides 1-3 if unauthenticated
-      if (target !== "cover" && !isAuthenticated) {
-        setShakeAlert(true)
-        setCurrent("cover")
-        setTimeout(() => setShakeAlert(false), 1500)
-        return
-      }
-
-      // Save tab only when navigating among dashboard pages (slides 1, 2, 3)
-      if (target !== "cover") {
-        localStorage.setItem("zenfx_active_dashboard_tab", target)
-      } else {
-        localStorage.removeItem("zenfx_active_dashboard_tab")
-      }
-
-      const dir = SLIDE_INDEX[target] > SLIDE_INDEX[current] ? "left" : "right"
-      setDirection(dir)
-      setPrev(current)
-      setCurrent(target)
-      setAnimating(true)
-
-      setTimeout(() => {
-        setPrev(null)
-        setAnimating(false)
-        setDirection("none")
-      }, 420)
-    },
-    [current, animating, isAuthenticated]
-  )
 
   // Keyboard navigation
   useEffect(() => {
@@ -197,7 +200,7 @@ export default function Home() {
       case "cover":
         return (
           <CoverSlide
-            onEnter={() => goTo("market-overview")}
+            onEnter={() => goTo("market-overview", true)}
             isAuthenticated={isAuthenticated}
             userEmail={userEmail}
             onLoginSuccess={handleLoginSuccess}
@@ -215,8 +218,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen bg-[#0A0D12] text-zinc-100 overflow-hidden select-none">
-      {/* App Splash Screen */}
-      <SplashScreen />
+      {/* App Splash Screen on Opening */}
+      {isCover && <SplashScreen />}
 
       {/* Top Status Bar (hidden on cover) */}
       {!isCover && (
@@ -231,7 +234,7 @@ export default function Home() {
               <BarChart3 className="h-3.5 w-3.5 text-amber-400" />
             </div>
             <span className="text-sm font-bold text-white tracking-tight">ZenFX</span>
-            <span className="text-zinc-700 text-xs ml-1">· Personal Suite</span>
+            <span className="text-zinc-700 text-xs ml-1">· Forex Suite</span>
           </button>
 
           {/* Center: breadcrumb */}

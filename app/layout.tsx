@@ -16,17 +16,20 @@ const snapshotDescription = LATEST_SNAPSHOT.map(
 ).join(" · ")
 
 export const metadata: Metadata = {
-  title: "ZenFX | Personal Trading Suite",
-  description: `Private trading suite untuk fundamental trader. Data terbaru: ${snapshotDescription}. Analisis XAUUSD, Forex News, Economic Calendar.`,
+  title: "ZenFX | Personal Forex Trading Suite",
+  description: `Private Forex & Gold trading suite untuk fundamental trader. Data terbaru: ${snapshotDescription}. Analisis XAUUSD, Forex News, Economic Calendar, & Macro Indicators.`,
   keywords: [
-    "ZenFX", "XAUUSD", "gold trading", "forex news", "fundamental analysis",
-    "economic calendar", "CPI", "NFP", "PCE", "FOMC", "interest rate",
-    "market research", "trading suite",
+    "forex trading suite",
+    "forex analysis",
+    "xauusd fundamental",
+    "gold trading",
+    "forex economic calendar",
+    "macro indicators",
   ].join(", "),
   authors: [{ name: "Zen The Trader" }],
   openGraph: {
-    title: "ZenFX | Personal Trading Suite",
-    description: `Data terbaru: ${snapshotDescription}`,
+    title: "ZenFX | Personal Forex Trading Suite",
+    description: `Terminal analisis fundamental Forex & Emas (XAUUSD) real-time. Snapshot: ${snapshotDescription}`,
     type: "website",
     locale: "id_ID",
   },

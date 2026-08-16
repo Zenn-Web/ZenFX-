@@ -37,7 +37,7 @@ test.describe("ZenFX Private Slide-Deck Suite", () => {
 
     test("should show personal trading suite subtitle", async ({ page }) => {
       await expect(
-        page.getByText(/Private Trading Suite/i).first()
+        page.getByText(/Private Forex & Gold Suite|Private Trading Suite/i).first()
       ).toBeVisible({ timeout: 3000 })
     })
 

@@ -3,43 +3,37 @@
 import { useState, useEffect } from "react"
 import { BarChart3 } from "lucide-react"
 
-interface SplashScreenProps {
-  onFinish?: () => void
-  durationMs?: number
-}
-
-export function SplashScreen({ onFinish, durationMs = 1100 }: SplashScreenProps) {
+export function SplashScreen() {
   const [visible, setVisible] = useState(true)
-  const [fading, setFading] = useState(false)
+  const [isFading, setIsFading] = useState(false)
 
   useEffect(() => {
-    // Start fade out
+    // Start smooth fade-out at 700ms
     const fadeTimer = setTimeout(() => {
-      setFading(true)
-    }, Math.max(durationMs - 350, 450))
+      setIsFading(true)
+    }, 700)
 
-    // Completely unmount after durationMs
-    const finishTimer = setTimeout(() => {
+    // Unmount completely from DOM at 1000ms
+    const hideTimer = setTimeout(() => {
       setVisible(false)
-      if (onFinish) onFinish()
-    }, durationMs)
+    }, 1000)
 
     return () => {
       clearTimeout(fadeTimer)
-      clearTimeout(finishTimer)
+      clearTimeout(hideTimer)
     }
-  }, [durationMs, onFinish])
+  }, [])
 
   if (!visible) return null
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0A0D12] select-none transition-opacity duration-350 ${
-        fading ? "opacity-0 pointer-events-none" : "opacity-100"
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0A0D12] select-none transition-opacity duration-300 pointer-events-none ${
+        isFading ? "opacity-0" : "opacity-100"
       }`}
     >
       {/* Background ambient glow */}
-      <div className="absolute w-72 h-72 rounded-full bg-amber-500/10 blur-3xl pointer-events-none -translate-y-4" />
+      <div className="absolute w-72 h-72 rounded-full bg-amber-500/10 blur-3xl -translate-y-4" />
 
       {/* Brand Icon & Name */}
       <div className="relative flex flex-col items-center gap-3">
@@ -54,7 +48,7 @@ export function SplashScreen({ onFinish, durationMs = 1100 }: SplashScreenProps)
             Zen<span className="text-amber-400">FX</span>
           </h1>
           <p className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 font-semibold">
-            Personal Trading Suite
+            Personal Forex Trading Suite
           </p>
         </div>
 

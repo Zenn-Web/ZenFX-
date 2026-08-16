@@ -21,9 +21,9 @@ export function CoverSlide({
   onLogout,
   shakeAlert = false,
 }: CoverSlideProps) {
-  const [visible, setVisible] = useState(false)
-  const [showSub, setShowSub] = useState(false)
-  const [showCard, setShowCard] = useState(false)
+  const [visible] = useState(true)
+  const [showSub] = useState(true)
+  const [showCard] = useState(true)
 
   // Auth form states
   const [mode, setMode] = useState<"signin" | "signup">("signin")
@@ -32,17 +32,6 @@ export function CoverSlide({
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setVisible(true), 150)
-    const t2 = setTimeout(() => setShowSub(true), 600)
-    const t3 = setTimeout(() => setShowCard(true), 1000)
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-    }
-  }, [])
 
   const handleAuthSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -76,8 +65,8 @@ export function CoverSlide({
         if (error) {
           setErrorMsg(error.message || "Gagal mendaftar akun baru.")
         } else if (data.user) {
-          setSuccessMsg("Akun berhasil dibuat! Silakan masuk dengan akun Anda.")
-          setMode("signin")
+          setSuccessMsg("Akun berhasil dibuat! Mengalihkan ke Market Overview...")
+          onLoginSuccess?.(data.user.email || email)
         }
       }
     } catch (err: any) {
@@ -154,7 +143,7 @@ export function CoverSlide({
           }}
         >
           <p className="text-amber-400/70 text-xs font-medium tracking-[0.3em] uppercase mb-2">
-            Private Trading Suite
+            Private Forex &amp; Gold Suite
           </p>
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
             ZenFX{" "}
@@ -179,7 +168,7 @@ export function CoverSlide({
             transition: "opacity 0.5s ease, transform 0.5s ease",
           }}
         >
-          Market research, analisis fundamental, dan live economic news dalam satu ruang pribadi.
+          Riset pasar fundamental Forex &amp; Emas (XAUUSD), live news, dan kalender makro dalam satu ruang pribadi.
         </p>
 
         {/* Glassmorphic Auth Card */}
