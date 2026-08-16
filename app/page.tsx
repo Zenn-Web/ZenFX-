@@ -5,8 +5,7 @@ import { CoverSlide } from "@/components/slides/cover-slide"
 import { MarketOverviewSlide } from "@/components/slides/market-overview-slide"
 import { NewsResearchSlide } from "@/components/slides/news-research-slide"
 import { NewsElementSlide } from "@/components/slides/news-element-slide"
-import { TradingChart } from "@/components/trading-chart"
-import { BarChart3, ChartCandlestick, LayoutDashboard, Newspaper, TrendingUp, LayoutGrid, LogOut, UserCheck } from "lucide-react"
+import { BarChart3, LayoutDashboard, Newspaper, TrendingUp, LayoutGrid, LogOut, UserCheck } from "lucide-react"
 import {
   isForexMarketOpen,
   getActiveSessions,
@@ -19,7 +18,6 @@ const SLIDES = [
   { id: "market-overview", label: "Market Overview", icon: LayoutGrid,        shortcut: "1" },
   { id: "news-research",   label: "News Research",   icon: Newspaper,         shortcut: "2" },
   { id: "news-element",    label: "News Element",    icon: TrendingUp,        shortcut: "3" },
-  { id: "live-chart",      label: "Live Chart",      icon: ChartCandlestick,  shortcut: "4" },
 ] as const
 
 type SlideId = (typeof SLIDES)[number]["id"]
@@ -32,7 +30,6 @@ const SLIDE_INDEX: Record<SlideId, number> = {
   "market-overview": 1,
   "news-research": 2,
   "news-element": 3,
-  "live-chart": 4,
 }
 
 export default function Home() {
@@ -119,7 +116,7 @@ export default function Home() {
     (target: SlideId) => {
       if (target === current || animating) return
 
-      // Guardrail: Protect slides 1-4 if unauthenticated
+      // Guardrail: Protect slides 1-3 if unauthenticated
       if (target !== "cover" && !isAuthenticated) {
         setShakeAlert(true)
         setCurrent("cover")
@@ -160,7 +157,6 @@ export default function Home() {
       else if (e.key === "1") goTo("market-overview")
       else if (e.key === "2") goTo("news-research")
       else if (e.key === "3") goTo("news-element")
-      else if (e.key === "4") goTo("live-chart")
     }
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
@@ -188,7 +184,6 @@ export default function Home() {
       case "market-overview": return <MarketOverviewSlide />
       case "news-research":   return <NewsResearchSlide />
       case "news-element":    return <NewsElementSlide />
-      case "live-chart":      return <TradingChart />
     }
   }
 
@@ -235,7 +230,7 @@ export default function Home() {
               <span className="max-w-[120px] truncate">{userEmail || "Zen Trader"}</span>
               <button
                 onClick={handleLogout}
-                className="ml-1 text-zinc-400 hover:text-red-400 transition-colors"
+                className="ml-1 text-zinc-400 hover:text-red-400 transition-colors cursor-pointer"
                 title="Logout"
               >
                 <LogOut className="h-3 w-3" />
@@ -289,7 +284,7 @@ export default function Home() {
                 key={slide.id}
                 onClick={() => goTo(slide.id)}
                 title={`${slide.label} (${slide.shortcut})`}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200 ${
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-amber-500/15 border-amber-500/35 text-amber-400 shadow-lg shadow-amber-500/10"
                     : "border-transparent text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/60"
