@@ -143,7 +143,7 @@ export function CoverSlide({
           }}
         >
           <p className="text-amber-400/70 text-xs font-medium tracking-[0.3em] uppercase mb-2">
-            Private Forex &amp; Gold Suite
+            Personal Forex &amp; Gold Suite
           </p>
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
             ZenFX{" "}
@@ -256,7 +256,7 @@ export function CoverSlide({
               {shakeAlert && !errorMsg && (
                 <div className="flex items-center gap-2 p-2.5 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs text-left">
                   <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
-                  <span>⚠️ Silakan login terlebih dahulu untuk membuka Private Suite.</span>
+                  <span>⚠️ Silakan login terlebih dahulu untuk membuka dashboard.</span>
                 </div>
               )}
 
@@ -347,7 +347,7 @@ export function CoverSlide({
                     <span className="animate-pulse">Memproses...</span>
                   ) : mode === "signin" ? (
                     <>
-                      <span>Enter Private Suite</span>
+                      <span>Enter ZenFX Suite</span>
                       <span>→</span>
                     </>
                   ) : (

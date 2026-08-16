@@ -17,7 +17,7 @@ const snapshotDescription = LATEST_SNAPSHOT.map(
 
 export const metadata: Metadata = {
   title: "ZenFX | Personal Forex Trading Suite",
-  description: `Private Forex & Gold trading suite untuk fundamental trader. Data terbaru: ${snapshotDescription}. Analisis XAUUSD, Forex News, Economic Calendar, & Macro Indicators.`,
+  description: `Personal Forex & Gold trading suite untuk fundamental trader. Data terbaru: ${snapshotDescription}. Analisis XAUUSD, Forex News, Economic Calendar, & Macro Indicators.`,
   keywords: [
     "forex trading suite",
     "forex analysis",
