@@ -43,3 +43,6 @@ next-env.d.ts
 # playwright
 /playwright-report/
 /test-results/
+
+# personal learning workspace (/teach skill) — not part of the product
+/.teach/
