@@ -47,13 +47,23 @@ export default function Home() {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [shakeAlert, setShakeAlert] = useState(false)
 
-  // Initialize Supabase Auth Session
+  // Initialize Supabase Auth Session & Restore Tab only when inside dashboard
   useEffect(() => {
+    const restoreDashboardTabIfActive = () => {
+      try {
+        const savedTab = localStorage.getItem("zenfx_active_dashboard_tab") as SlideId
+        if (savedTab && ["market-overview", "news-research", "news-element"].includes(savedTab)) {
+          setCurrent(savedTab)
+        }
+      } catch {}
+    }
+
     // Check initial active session
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setIsAuthenticated(true)
         setUserEmail(session.user.email || null)
+        restoreDashboardTabIfActive()
       } else {
         // Fallback to local session check
         const localAuth = localStorage.getItem("zenfx_authenticated")
@@ -61,6 +71,7 @@ export default function Home() {
         if (localAuth === "true") {
           setIsAuthenticated(true)
           setUserEmail(localEmail || "Zen Trader")
+          restoreDashboardTabIfActive()
         }
       }
     })
@@ -77,6 +88,8 @@ export default function Home() {
         setUserEmail(null)
         localStorage.removeItem("zenfx_authenticated")
         localStorage.removeItem("zenfx_user_email")
+        localStorage.removeItem("zenfx_active_dashboard_tab")
+        setCurrent("cover")
       }
     })
 
@@ -102,6 +115,8 @@ export default function Home() {
     localStorage.setItem("zenfx_authenticated", "true")
     localStorage.setItem("zenfx_user_email", email)
     setShakeAlert(false)
+    const targetTab = (localStorage.getItem("zenfx_active_dashboard_tab") as SlideId) || "market-overview"
+    goTo(targetTab)
   }
 
   const handleLogout = async () => {
@@ -110,6 +125,7 @@ export default function Home() {
     setUserEmail(null)
     localStorage.removeItem("zenfx_authenticated")
     localStorage.removeItem("zenfx_user_email")
+    localStorage.removeItem("zenfx_active_dashboard_tab")
     setCurrent("cover")
   }
 
@@ -123,6 +139,13 @@ export default function Home() {
         setCurrent("cover")
         setTimeout(() => setShakeAlert(false), 1500)
         return
+      }
+
+      // Save tab only when navigating among dashboard pages (slides 1, 2, 3)
+      if (target !== "cover") {
+        localStorage.setItem("zenfx_active_dashboard_tab", target)
+      } else {
+        localStorage.removeItem("zenfx_active_dashboard_tab")
       }
 
       const dir = SLIDE_INDEX[target] > SLIDE_INDEX[current] ? "left" : "right"
@@ -217,7 +240,7 @@ export default function Home() {
               <span key={s.id} className="flex items-center gap-1.5">
                 <button
                   onClick={() => goTo(s.id)}
-                  className={`hover:text-zinc-200 transition-colors ${current === s.id ? "text-amber-400 font-semibold" : ""}`}
+                  className={`hover:text-zinc-200 transition-colors cursor-pointer ${current === s.id ? "text-amber-400 font-semibold" : ""}`}
                 >
                   {s.label}
                 </button>

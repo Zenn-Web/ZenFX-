@@ -8,15 +8,15 @@ interface SplashScreenProps {
   durationMs?: number
 }
 
-export function SplashScreen({ onFinish, durationMs = 1400 }: SplashScreenProps) {
+export function SplashScreen({ onFinish, durationMs = 1100 }: SplashScreenProps) {
   const [visible, setVisible] = useState(true)
   const [fading, setFading] = useState(false)
 
   useEffect(() => {
-    // Start fade out after (durationMs - 400)
+    // Start fade out
     const fadeTimer = setTimeout(() => {
       setFading(true)
-    }, Math.max(durationMs - 400, 600))
+    }, Math.max(durationMs - 350, 450))
 
     // Completely unmount after durationMs
     const finishTimer = setTimeout(() => {
@@ -34,7 +34,7 @@ export function SplashScreen({ onFinish, durationMs = 1400 }: SplashScreenProps)
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0A0D12] select-none transition-opacity duration-500 ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0A0D12] select-none transition-opacity duration-350 ${
         fading ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
