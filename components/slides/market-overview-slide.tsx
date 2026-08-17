@@ -221,7 +221,7 @@ export function MarketOverviewSlide() {
         </div>
 
         {/* Right Column: Sessions & Macro Intelligence (4/12 cols) */}
-        <div className="lg:col-span-4 flex flex-col min-h-0 gap-2.5 justify-between">
+        <div className="lg:col-span-4 flex flex-col min-h-0 gap-2.5">
           {/* Bento Card 1: Active Trading Sessions */}
           <div className="flex flex-col p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/70 gap-2 shrink-0">
             <div className="flex items-center justify-between border-b border-zinc-800/60 pb-1.5">
@@ -258,7 +258,7 @@ export function MarketOverviewSlide() {
           </div>
 
           {/* Bento Card 2: Key Macro Indicators Snapshot */}
-          <div className="flex flex-col p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/70 gap-2 flex-1 min-h-0 justify-between">
+          <div className="flex flex-col p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/70 gap-2 shrink-0">
             <div className="flex items-center justify-between border-b border-zinc-800/60 pb-1.5">
               <div className="flex items-center gap-1.5">
                 <Activity className="h-3.5 w-3.5 text-amber-400" />
@@ -267,7 +267,7 @@ export function MarketOverviewSlide() {
               <span className="text-[10px] text-zinc-500 font-mono">US Data</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-1.5 flex-1 min-h-0 content-center">
+            <div className="grid grid-cols-2 gap-1.5">
               {KEY_INDICATORS.map((ind) => (
                 <div key={ind.name} className="p-2 rounded-lg bg-zinc-900/80 border border-zinc-800/60 flex flex-col gap-0.5 justify-between">
                   <span className="text-[10px] font-medium text-zinc-300 truncate">{ind.name}</span>
