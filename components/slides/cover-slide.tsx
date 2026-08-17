@@ -204,12 +204,8 @@ export function CoverSlide({
   const [showSub] = useState(true)
   const [showCard] = useState(true)
 
-  // Teaser strip state — starts revealed if we were redirected here by the
-  // auth guard (shakeAlert), so the form is immediately visible in that case.
-  const [revealed, setRevealed] = useState(shakeAlert)
-  useEffect(() => {
-    if (shakeAlert) setRevealed(true)
-  }, [shakeAlert])
+  // Auth form is visible by default so user can sign in/up immediately
+  const [revealed, setRevealed] = useState(true)
 
   // Starts null so server-rendered HTML and the first client render match —
   // the actual clock only fills in after mount (client-only, avoids hydration mismatch).

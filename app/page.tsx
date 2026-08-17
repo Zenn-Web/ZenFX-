@@ -120,7 +120,7 @@ export default function Home() {
         localStorage.setItem("zenfx_authenticated", "true")
         localStorage.setItem("zenfx_user_email", session.user.email || "")
         restoreDashboardTabIfActive()
-      } else {
+      } else if (_event === "SIGNED_OUT") {
         setIsAuthenticated(false)
         setUserEmail(null)
         localStorage.removeItem("zenfx_authenticated")
