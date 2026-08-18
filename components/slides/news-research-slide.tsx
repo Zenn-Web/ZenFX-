@@ -265,8 +265,61 @@ Kamu adalah analis senior XAUUSD/Gold. Buat market brief singkat namun tajam ber
   )
 }
 
+const MOBILE_PANELS = [
+  { key: "calendar", label: "Calendar", icon: Globe },
+  { key: "news", label: "News", icon: Newspaper },
+  { key: "ai", label: "AI", icon: Sparkles },
+] as const
+
 /* News Research Slide */
 export function NewsResearchSlide() {
+  const [mobileTab, setMobileTab] = useState<"calendar" | "news" | "ai">("calendar")
+
+  const calendarPanel = (
+    <div className="flex flex-col h-full min-h-0">
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
+        <Globe className="h-3.5 w-3.5 text-zinc-500" />
+        <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
+          Economic Calendar
+        </span>
+      </div>
+      <div className="flex-1 min-h-0 overflow-hidden">
+        <CryptoNews showCountdown={true} defaultFilter="all" />
+      </div>
+    </div>
+  )
+
+  const newsPanel = (
+    <div className="flex flex-col h-full min-h-0">
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
+        <Newspaper className="h-3.5 w-3.5 text-zinc-500" />
+        <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
+          Live Market News
+        </span>
+      </div>
+      <div className="flex-1 min-h-0 overflow-hidden">
+        <ForexNewsFeed compact={false} />
+      </div>
+    </div>
+  )
+
+  const aiPanel = (
+    <div className="flex flex-col h-full min-h-0">
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
+        <Sparkles className="h-3.5 w-3.5 text-zinc-500" />
+        <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
+          AI Market Digest
+        </span>
+      </div>
+      <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+        <AiDigestPanel />
+      </div>
+    </div>
+  )
+
+  const mobileActivePanel =
+    mobileTab === "calendar" ? calendarPanel : mobileTab === "news" ? newsPanel : aiPanel
+
   return (
     <div className="flex flex-col h-full w-full bg-[#0A0D12]">
 
@@ -303,48 +356,36 @@ export function NewsResearchSlide() {
         </div>
       </div>
 
-      {/* 3-Panel Body — stacked & scrollable below lg, side-by-side fixed-width above lg */}
-      <div className="flex flex-col lg:flex-row flex-1 min-h-0 overflow-y-auto lg:overflow-hidden divide-y lg:divide-y-0 divide-x-0 lg:divide-x divide-zinc-800/60">
+      {/* Desktop 3-Panel Body (lg+) */}
+      <div className="hidden lg:flex flex-1 min-h-0 overflow-hidden divide-x divide-zinc-800/60">
+        <div className="w-[340px] shrink-0 flex flex-col min-h-0">{calendarPanel}</div>
+        <div className="flex-1 flex flex-col min-h-0 min-w-0">{newsPanel}</div>
+        <div className="w-[360px] shrink-0 flex flex-col min-h-0">{aiPanel}</div>
+      </div>
 
-        {/* Panel Kiri: Economic Calendar (340px on desktop) */}
-        <div className="w-full lg:w-[340px] shrink-0 flex flex-col min-h-[420px] lg:min-h-0">
-          <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
-            <Globe className="h-3.5 w-3.5 text-zinc-500" />
-            <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
-              Economic Calendar
-            </span>
-          </div>
-          <div className="flex-1 min-h-0 overflow-hidden">
-            <CryptoNews showCountdown={true} defaultFilter="all" />
-          </div>
+      {/* Mobile Body (below lg): one panel at a time, switched via bottom segmented control */}
+      <div className="lg:hidden flex flex-col flex-1 min-h-0">
+        <div className="flex-1 min-h-0 overflow-hidden">{mobileActivePanel}</div>
+
+        <div className="flex items-center gap-1 p-1.5 shrink-0 border-t border-zinc-800/60 bg-[#0D1117]">
+          {MOBILE_PANELS.map((p) => {
+            const isActive = p.key === mobileTab
+            return (
+              <button
+                key={p.key}
+                onClick={() => setMobileTab(p.key)}
+                className={`flex-1 flex flex-col items-center gap-0.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all ${
+                  isActive
+                    ? "bg-amber-500/15 text-amber-400 border border-amber-500/30"
+                    : "text-zinc-500 border border-transparent hover:bg-zinc-900/60"
+                }`}
+              >
+                <p.icon className="h-4 w-4" />
+                <span>{p.label}</span>
+              </button>
+            )
+          })}
         </div>
-
-        {/* Panel Tengah: Live Market News (flex-1) */}
-        <div className="flex-1 flex flex-col min-h-[420px] lg:min-h-0 min-w-0">
-          <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
-            <Newspaper className="h-3.5 w-3.5 text-zinc-500" />
-            <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
-              Live Market News
-            </span>
-          </div>
-          <div className="flex-1 min-h-0 overflow-hidden">
-            <ForexNewsFeed compact={false} />
-          </div>
-        </div>
-
-        {/* Panel Kanan: AI Market Digest (360px on desktop) */}
-        <div className="w-full lg:w-[360px] shrink-0 flex flex-col min-h-[420px] lg:min-h-0">
-          <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
-            <Sparkles className="h-3.5 w-3.5 text-zinc-500" />
-            <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
-              AI Market Digest
-            </span>
-          </div>
-          <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
-            <AiDigestPanel />
-          </div>
-        </div>
-
       </div>
     </div>
   )
