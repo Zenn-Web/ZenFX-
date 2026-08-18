@@ -468,20 +468,22 @@ function IndicatorSection({
       </button>
 
       {open && (
-        <table className="w-full text-left border-collapse">
-          <TableHead />
-          <tbody>
-            {indicators.map((ind, i) => (
-              <IndicatorRow
-                key={ind.id}
-                ind={ind}
-                rank={i + 1}
-                pinned={pinnedIds.has(ind.id)}
-                onTogglePin={onTogglePin}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[560px] text-left border-collapse">
+            <TableHead />
+            <tbody>
+              {indicators.map((ind, i) => (
+                <IndicatorRow
+                  key={ind.id}
+                  ind={ind}
+                  rank={i + 1}
+                  pinned={pinnedIds.has(ind.id)}
+                  onTogglePin={onTogglePin}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   )
@@ -508,20 +510,22 @@ function WatchlistSection({
         <span className="text-[10px] text-zinc-700 font-mono">{pinned.length} pinned</span>
         <span className="ml-auto text-[10px] text-zinc-700">Hover baris → info · Pin icon untuk unpin</span>
       </div>
-      <table className="w-full text-left border-collapse">
-        <TableHead />
-        <tbody>
-          {pinned.map((ind, i) => (
-            <IndicatorRow
-              key={ind.id}
-              ind={ind}
-              rank={i + 1}
-              pinned={true}
-              onTogglePin={onTogglePin}
-            />
-          ))}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[560px] text-left border-collapse">
+          <TableHead />
+          <tbody>
+            {pinned.map((ind, i) => (
+              <IndicatorRow
+                key={ind.id}
+                ind={ind}
+                rank={i + 1}
+                pinned={true}
+                onTogglePin={onTogglePin}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
@@ -595,7 +599,7 @@ export function NewsElementSlide() {
       <BreakingBanner indicators={indicators} />
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 h-10 shrink-0 border-b border-zinc-800/60 bg-[#0D1117]">
+      <div className="flex items-center justify-between flex-wrap gap-2 px-4 py-1.5 min-h-10 shrink-0 border-b border-zinc-800/60 bg-[#0D1117]">
         <div className="flex items-center gap-2">
           <TrendingUp className="h-3.5 w-3.5 text-amber-400" />
           <span className="text-sm font-bold text-white">News Element</span>
@@ -627,7 +631,7 @@ export function NewsElementSlide() {
               aria-label="Cari indikator ekonomi"
               value={query}
               onChange={(e) => handleSearch(e.target.value)}
-              className="bg-zinc-900/60 border border-zinc-800/50 rounded-lg pl-7 pr-7 py-1 text-[11px] text-zinc-300 placeholder:text-zinc-700 focus:outline-none focus:border-amber-500/40 w-44 transition-all"
+              className="bg-zinc-900/60 border border-zinc-800/50 rounded-lg pl-7 pr-7 py-1 text-[11px] text-zinc-300 placeholder:text-zinc-700 focus:outline-none focus:border-amber-500/40 w-32 sm:w-44 transition-all"
             />
             {query && (
               <button

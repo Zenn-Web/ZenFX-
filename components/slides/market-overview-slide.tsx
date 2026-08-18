@@ -71,9 +71,9 @@ export function MarketOverviewSlide() {
   )}&interval=${intervalParam}&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=0D1117&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FJakarta&studies_overrides=%7B%7D&overrides=%7B%22mainSeriesProperties.style%22%3A1%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en`
 
   return (
-    <div className="flex flex-col h-full w-full bg-[#0A0D12] text-zinc-100 p-3 overflow-hidden select-none gap-2">
+    <div className="flex flex-col h-full w-full bg-[#0A0D12] text-zinc-100 p-3 overflow-y-auto select-none gap-2">
       {/* Top Header: Title & Quick Asset Pills */}
-      <div className="flex items-center justify-between shrink-0 border-b border-zinc-800/60 pb-2">
+      <div className="flex items-center justify-between flex-wrap gap-2 shrink-0 border-b border-zinc-800/60 pb-2">
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-500/30">
             <BarChart3 className="h-4 w-4 text-amber-400" />
@@ -82,7 +82,7 @@ export function MarketOverviewSlide() {
             <h1 className="text-sm font-bold text-white tracking-tight leading-none">
               Market Overview &amp; Live Terminal
             </h1>
-            <span className="text-[10px] text-zinc-500 font-mono">
+            <span className="hidden sm:block text-[10px] text-zinc-500 font-mono">
               Live Macro Sentiment, Active Sessions, &amp; TradingView Technical Chart
             </span>
           </div>
@@ -121,10 +121,10 @@ export function MarketOverviewSlide() {
       </div>
 
       {/* Main Bento Grid: Live Chart (8 cols) + Right Analytics Stack (4 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 flex-1 min-h-0">
-        
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 lg:flex-1 lg:min-h-0">
+
         {/* Left Column: Interactive Live Chart Terminal (8/12 cols) */}
-        <div className="lg:col-span-8 flex flex-col rounded-xl bg-zinc-900/50 border border-zinc-800/80 overflow-hidden shadow-xl min-h-0">
+        <div className="lg:col-span-8 flex flex-col h-[360px] lg:h-auto rounded-xl bg-zinc-900/50 border border-zinc-800/80 overflow-hidden shadow-xl lg:min-h-0">
           {/* Chart Header Controls */}
           <div className="flex items-center justify-between bg-[#0D1117] px-3 py-1.5 border-b border-zinc-800/60 shrink-0">
             <div className="flex items-center gap-2">
@@ -185,7 +185,7 @@ export function MarketOverviewSlide() {
         </div>
 
         {/* Right Column: 3 Perfectly-Filled Bento Intelligence Cards (4/12 cols) */}
-        <div className="lg:col-span-4 flex flex-col min-h-0 gap-2 h-full justify-between">
+        <div className="lg:col-span-4 flex flex-col gap-2 lg:h-full lg:min-h-0 justify-between">
           
           {/* Bento Card 1: Active Trading Sessions */}
           <div className="flex flex-col p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/70 gap-1.5 shrink-0">
@@ -249,7 +249,7 @@ export function MarketOverviewSlide() {
           </div>
 
           {/* Bento Card 3: Macro Sentiment & Market Bias Matrix (Fills entire bottom height) */}
-          <div className="flex flex-col p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/70 gap-2 flex-1 min-h-0 justify-between">
+          <div className="flex flex-col p-2.5 rounded-xl bg-zinc-900/60 border border-zinc-800/70 gap-2 lg:flex-1 lg:min-h-0 justify-between">
             {/* Card Header */}
             <div className="flex items-center justify-between border-b border-zinc-800/60 pb-1 shrink-0">
               <div className="flex items-center gap-1.5">

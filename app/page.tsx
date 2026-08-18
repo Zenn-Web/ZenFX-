@@ -217,7 +217,7 @@ export default function Home() {
   const isCover = current === "cover"
 
   return (
-    <div className="flex flex-col h-screen bg-[#0A0D12] text-zinc-100 overflow-hidden select-none">
+    <div className="flex flex-col h-dvh bg-[#0A0D12] text-zinc-100 overflow-hidden select-none">
       {/* App Splash Screen on Opening */}
       {isCover && <SplashScreen />}
 
@@ -234,11 +234,11 @@ export default function Home() {
               <BarChart3 className="h-3.5 w-3.5 text-amber-400" />
             </div>
             <span className="text-sm font-bold text-white tracking-tight">ZenFX</span>
-            <span className="text-zinc-700 text-xs ml-1">· Forex Suite</span>
+            <span className="text-zinc-700 text-xs ml-1 hidden sm:inline">· Forex Suite</span>
           </button>
 
-          {/* Center: breadcrumb */}
-          <div className="flex items-center gap-1.5 text-xs text-zinc-500">
+          {/* Center: breadcrumb — hidden on small screens, bottom nav already shows current tab */}
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-zinc-500">
             {SLIDES.filter((s) => s.id !== "cover").map((s, i, arr) => (
               <span key={s.id} className="flex items-center gap-1.5">
                 <button
@@ -253,11 +253,11 @@ export default function Home() {
           </div>
 
           {/* Right: user badge + market status + clock */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* User session badge */}
             <div className="flex items-center gap-1.5 text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/25 px-2.5 py-0.5 rounded-full font-medium">
               <UserCheck className="h-3 w-3" />
-              <span className="max-w-[120px] truncate">{userEmail || "Zen Trader"}</span>
+              <span className="max-w-[80px] sm:max-w-[120px] truncate">{userEmail || "Zen Trader"}</span>
               <button
                 onClick={handleLogout}
                 className="ml-1 text-zinc-400 hover:text-red-400 transition-colors cursor-pointer"
@@ -267,11 +267,11 @@ export default function Home() {
               </button>
             </div>
 
-            <div className={`flex items-center gap-1.5 text-[11px] ${marketOpen ? "text-emerald-400" : "text-zinc-600"}`}>
+            <div className={`hidden sm:flex items-center gap-1.5 text-[11px] ${marketOpen ? "text-emerald-400" : "text-zinc-600"}`}>
               <span className={`w-1.5 h-1.5 rounded-full ${marketOpen ? "bg-emerald-400 animate-pulse" : "bg-zinc-600"}`} />
               {marketOpen ? (sessions.length > 0 ? sessions.join(" · ") : "Open") : "Closed"}
             </div>
-            <span className="text-[11px] font-mono text-zinc-600">UTC {utcTime}</span>
+            <span className="hidden sm:inline text-[11px] font-mono text-zinc-600">UTC {utcTime}</span>
           </div>
         </header>
       )}

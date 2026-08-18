@@ -296,11 +296,11 @@ export function NewsResearchSlide() {
         </div>
       </div>
 
-      {/* 3-Panel Body */}
-      <div className="flex flex-1 min-h-0 overflow-hidden divide-x divide-zinc-800/60">
+      {/* 3-Panel Body — stacked & scrollable below lg, side-by-side fixed-width above lg */}
+      <div className="flex flex-col lg:flex-row flex-1 min-h-0 overflow-y-auto lg:overflow-hidden divide-y lg:divide-y-0 divide-x-0 lg:divide-x divide-zinc-800/60">
 
-        {/* Panel Kiri: Economic Calendar (340px) */}
-        <div className="w-[340px] shrink-0 flex flex-col min-h-0">
+        {/* Panel Kiri: Economic Calendar (340px on desktop) */}
+        <div className="w-full lg:w-[340px] shrink-0 flex flex-col min-h-[420px] lg:min-h-0">
           <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
             <Globe className="h-3.5 w-3.5 text-zinc-500" />
             <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
@@ -313,7 +313,7 @@ export function NewsResearchSlide() {
         </div>
 
         {/* Panel Tengah: Live Market News (flex-1) */}
-        <div className="flex-1 flex flex-col min-h-0 min-w-0">
+        <div className="flex-1 flex flex-col min-h-[420px] lg:min-h-0 min-w-0">
           <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
             <Newspaper className="h-3.5 w-3.5 text-zinc-500" />
             <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
@@ -325,8 +325,8 @@ export function NewsResearchSlide() {
           </div>
         </div>
 
-        {/* Panel Kanan: AI Market Digest (360px) */}
-        <div className="w-[360px] shrink-0 flex flex-col min-h-0">
+        {/* Panel Kanan: AI Market Digest (360px on desktop) */}
+        <div className="w-full lg:w-[360px] shrink-0 flex flex-col min-h-[420px] lg:min-h-0">
           <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40 shrink-0 bg-zinc-900/40 news-panel-header">
             <Sparkles className="h-3.5 w-3.5 text-zinc-500" />
             <span className="text-[11px] font-semibold text-zinc-400 tracking-widest uppercase">
