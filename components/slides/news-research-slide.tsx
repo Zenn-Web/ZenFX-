@@ -77,16 +77,19 @@ Kamu adalah analis senior XAUUSD/Gold. Buat market brief singkat namun tajam ber
         }),
       })
       const data = await res.json()
-      if (data.reply) {
-        const timeStr = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
-        const newMsgs = [
-          ...messages,
-          { role: "assistant" as const, content: data.reply, time: timeStr }
-        ]
-        saveMessages(newMsgs)
-      }
+      const timeStr = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+      const replyContent = data.reply ?? `⚠️ Gagal membuat digest: ${data.error ?? "Terjadi kesalahan tidak diketahui."}`
+      saveMessages([
+        ...messages,
+        { role: "assistant" as const, content: replyContent, time: timeStr }
+      ])
     } catch (err) {
       console.error(err)
+      const timeStr = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+      saveMessages([
+        ...messages,
+        { role: "assistant" as const, content: "⚠️ Gagal terhubung ke server AI. Coba lagi sebentar.", time: timeStr }
+      ])
     } finally {
       setIsSending(false)
     }
@@ -115,15 +118,19 @@ Kamu adalah analis senior XAUUSD/Gold. Buat market brief singkat namun tajam ber
         body: JSON.stringify({ messages: apiMessages }),
       })
       const data = await res.json()
-      if (data.reply) {
-        const finalMsgs = [
-          ...updatedWithUser,
-          { role: "assistant" as const, content: data.reply, time: timeStr }
-        ]
-        saveMessages(finalMsgs)
-      }
+      const replyTime = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+      const replyContent = data.reply ?? `⚠️ Gagal mendapat balasan: ${data.error ?? "Terjadi kesalahan tidak diketahui."}`
+      saveMessages([
+        ...updatedWithUser,
+        { role: "assistant" as const, content: replyContent, time: replyTime }
+      ])
     } catch (err) {
       console.error(err)
+      const replyTime = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+      saveMessages([
+        ...updatedWithUser,
+        { role: "assistant" as const, content: "⚠️ Gagal terhubung ke server AI. Coba lagi sebentar.", time: replyTime }
+      ])
     } finally {
       setIsSending(false)
     }
